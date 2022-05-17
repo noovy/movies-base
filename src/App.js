@@ -6,11 +6,12 @@ import './App.css';
 function App() {
   const [movies, setMovies] = useState([]);
 
-  function fetchMoviesGandler() {
-    fetch('https://swapi.dev/api/films').then(response => {
-      return response.json();
-    }).then(data =>{
-      const transformedMovies = data.results.map(movieData =>{
+  async function fetchMoviesGandler() {
+    const response = await fetch('https://swapi.dev/api/films');
+    const data = await response.json();
+    console.log(data);
+
+    const transformedMovies = data.results.map(movieData =>{
         return {
           id: movieData.episode_id,
           title: movieData.title,
@@ -19,8 +20,8 @@ function App() {
         };
       });
       setMovies(transformedMovies);
-    });
-  }
+    };
+
 
   return (
     <React.Fragment>
